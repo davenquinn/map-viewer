@@ -3,9 +3,5 @@
   "version": "0.0.0",
   "description": "A lightweight and extensible GIS data viewer for local and remote tiles in any projection.",
   "main": "index.html",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+  "author": "Daven Quinn"
 }
