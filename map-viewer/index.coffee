@@ -1,3 +1,9 @@
+require "./dev"
+key = require "keymaster"
+
+key "ctrl+D",->
+  window.require('nw.gui').Window.get().showDevTools()
+
 $ = require "jquery"
 L = require "leaflet-0.8-dev"
 Spine = require "spine"
