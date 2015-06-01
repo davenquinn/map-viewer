@@ -1,29 +1,33 @@
+L = require "leaflet-0.8-dev"
 require "./dev"
 key = require "keymaster"
+createMap = require "./map"
+$ = require "jquery"
+
+reload = ->
+  console.log 'Reloading app...'
+  # Clear and delete node-webkit's global required modules cache.
+  # See: http://stackoverflow.com/q/25143532/
+  for module_name, module of global.require.cache
+    delete global.require.cache[module_name]
+  window.location.reload()
 
 key "ctrl+D",->
   window.require('nw.gui').Window.get().showDevTools()
-
-$ = require "jquery"
-L = require "leaflet-0.8-dev"
-Spine = require "spine"
+key "ctrl+R",reload
 
 node = document.createElement 'div'
 document.body.appendChild node
 
-map = new L.Map node,
-  center: [34.05, -118.25]
-  zoom: 6
+map = createMap node
 
-url = 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}'
-if L.Browser.retina
-  url += "@2x"
-url += ".png"
+url = "http://localhost:8080/wmts"
 
-attr = '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors,
-        © <a href="http://cartodb.com/attributions">CartoDB</a>'
+contours = L.tileLayer url+'/contour_hq/utm_hq/{z}/{x}/{y}.png',
+  minZoom: 1
+  maxZoom: 20
+  tileSize: 256
+  continuousWorld: true
+  #detectRetina: true
 
-layer = L.tileLayer url,
-  attribution: attr
-
-layer.addTo map
+contours.addTo map
