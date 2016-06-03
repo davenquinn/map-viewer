@@ -30,4 +30,11 @@ contours = L.tileLayer url+'/contour_hq/utm_hq/{z}/{x}/{y}.png',
   continuousWorld: true
   #detectRetina: true
 
+satellite = L.tileLayer url+'/satellite/utm/{z}/{x}/{y}.png',
+  minZoom: 1
+  maxZoom: 20
+  tileSize: 256
+  detectRetina: true
+
 contours.addTo map
+satellite.addTo map
